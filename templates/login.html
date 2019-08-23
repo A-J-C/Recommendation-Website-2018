@@ -1,0 +1,68 @@
+<!-- AUTHOR: mxcm21	-->
+<!-- THE LOGIN PAGE -->
+
+<!-- we use a template for consistent navbar etc. -->
+{% extends "template.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="/static/js/login.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+{% endblock %}
+
+{% block main %}
+
+<div class="container h-100" id="login" data-url="{{ url_for('login') }}">
+  <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-md-6 mx-auto">
+          <div class="card rounded-0">
+              <div class="card-header">
+                  <h2 class="mb-0" id="loginHead"><span data-langKey="Login">Login</span></h2>
+                  <h2 class="mb-0 unselected" id="registerHead"><span data-langKey="Register">Register</span></h2>
+              </div>
+              <div class="card-body">
+                  <!-- Login Form -->
+                  <form id="loginForm" action="">
+                      <div class="form-group">
+                          <input id="usernameLogin" type="text" class="form-control " name="username" placeholder="Username" required="">
+                          <div id="uError" class="regErrors invalid-feedback"><span data-langKey="loginError">Oops, invalid username! </br>
+                            Create one or use: Alex, Harry, Rachel, Oskar or Sofia</span></div>
+                      </div>
+                      <button type="submit" class="btn btn-default float-right myButton" id="btnLogin"><span data-langKey="signIn">Sign In</span></button>
+                  </form>
+
+                  <!-- Registration Form -->
+                  <form id="registerForm" action="">
+                      <div class="form-group">
+                          <input id="usernameReg" type="text" class="form-control " name="username" placeholder="Username" required="">
+                          <div class="invalid-feedback"><span data-langKey="userError">Oops, please enter a username! </span></div>
+                          <div class="regErrors" id="usernameError"><span data-langKey="userTaken"> Sorry, that username is already taken </span></div>
+
+                          <input id="emailReg" type="text" class="form-control " name="email" placeholder="Email" required="">
+                          <div class="invalid-feedback"><span data-langKey="emailError">Please enter a valid email </span></div>
+
+                          <select id="dropdownLanguage" class="form-control" name="language">
+                            <option class="item">English</option>
+                            <option class="item">Français</option>
+                            <option class="item">Deutsch</option>
+                            <option class="item">русский</option>
+                          </select>
+
+                          <label for="user"><span data-langKey="userMovieLens">UserID to use from MovieLensDB (1-610), leave blank for brand new user</span>:</label>
+                          <input id="userID" type="number" min="1" max="610" class="form-control " name="user" placeholder="-">
+                          <div class="invalid-feedback"><span data-langKey="idError">Please enter a number between 1 and 610 </span></div>
+                          <div class="regErrors" id="userIDError"><span data-langKey="idExists"> Sorry, that MovieLens ID is already taken </span></div>
+
+                      </div>
+                      <button type="submit" class="btn btn-default float-right myButton" id="btnRegister" title="Regestering a new user will take a few seconds, please be patient.">
+                        <span data-langKey="Register">Register</span>
+                      </button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

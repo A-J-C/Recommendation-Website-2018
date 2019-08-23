@@ -1,0 +1,93 @@
+<!-- AUTHOR: mxcm21	-->
+<!-- TEMPLATE THAT ALL OTHER PAGES INHERIT FROM (JINJA) -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+	<!-- important meta data for internationalisation and to attempt to prevent caching -->
+	<meta name="viewport" content="text/html, width=device-width, initial-scale=1, shrink-to-fit=no, charset=unicode">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+	<title> {% block title %}{% endblock %} </title>
+
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+
+	<!-- Bootstrap 4 CDN -->
+	<link type="text/css" rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap 4 drops Glyphicons so we replace with Font Awesome -->
+  <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+
+	<!-- My Files -->
+  <script type="text/javascript" src="/static/js/languages.js"></script>
+  <script type="text/javascript" src="/static/js/recommendations.js"></script>
+	<script type="text/javascript" src="/static/js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+	<link rel="shortcut icon" href="/static/movie.ico" type="image/x-icon">
+  {% block head %}{% endblock %}
+
+  </head>
+
+  <!-- i18n tag -->
+  <body dir="ltr">
+
+  <!-- Material Design Bootstrap CDN Needs to be loaded in Body -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.15/js/mdb.min.js"></script>
+
+  <!-- Nav Bar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="fas fa-film"></i> Movies.com</a>
+
+      <button class="navbar-toggler navbar-toggler-right collapsed" aria-expanded="false" aria-controls="moviesNav" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#moviesNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="navbar-collapse collapse navbar-right" id="moviesNav" aria-expanded="false">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="languageSelection" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
+                <span data-langKey="Language">Language </span><span class="fas fa-globe"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="languageSelection">
+                <a class="dropdown-item lang">English</a>
+                <a class="dropdown-item lang">Français</a>
+                <a class="dropdown-item lang">Deutsch</a>
+                <a class="dropdown-item lang">русский</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle {{settingsClass}}" id="settings" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
+                <span data-langKey="Settings">Settings </span><span class="fas fa-cog"></span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="settingDropdown">
+                <a class="dropdown-item" id="profile" data-toggle="modal" data-target="#settingsModal"><span data-langKey="Profile"> Profile </span></a>
+                <a href="/logout" class="dropdown-item" id="logout"><span data-langKey="Logout"> Logout </span><span class="fas fa-sign-out-alt"></span></a>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+	</nav>
+
+  <!-- main body of website -->
+  <main role="main">
+
+    <!-- other pages fill in this part of template -->
+    {% block main %}{% endblock %}
+
+  </main>
+  </body>
+
+  {% block scripts %}{% endblock %}
+</html>

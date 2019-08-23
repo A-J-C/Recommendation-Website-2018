@@ -1,0 +1,111 @@
+/* AUTHOR: mxcm21	*/
+/* CONTAINS LOGIN SPECIFIC CSS */
+
+/* Want to change background */
+body, html, main {
+  height: 100%;
+  background: #343A40;
+}
+
+main {
+  margin-top: 0;
+}
+
+.card {
+  background: #343A40;
+  color: white;
+  border: none;
+}
+
+.card-header {
+  border: none;
+  background-color: transparent;
+}
+
+.card-header h2 {
+  border-bottom: 5px solid white;
+  display:inline-block;
+  padding: 0 10px 5px 0;
+}
+
+.card-header h2:hover {
+  color: white;
+  border-color: white;
+  cursor: pointer;
+}
+
+.form-control, .form-control:focus {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #666;
+  border-radius: 0;
+  color: #999;
+  font-size: 1.5rem;
+  outline: 0;
+  box-shadow: none;
+  padding: 0 0 10px 0;
+}
+
+.was-validated .form-control:invalid:focus,
+.was-validated .form-control:valid:focus {
+  box-shadow: none;
+}
+
+.invalid-feedback {
+  font-size: 1.2rem;
+}
+
+.myButton {
+  color: white;
+  background: #484D53;
+  box-shadow: none !important;
+}
+
+.myButton:hover {
+  color: #000;
+  background: #DDD;
+}
+
+#registerHead {
+  margin-left: 25px;
+}
+
+#registerForm {
+  display: none;
+}
+
+.card-header h2.unselected {
+  color: #666;
+  border-color: #666;
+}
+
+input, select, label {
+  margin-top: 20px;
+}
+
+label {
+  color: #999;
+  font-size: 1.1rem;
+}
+
+#dropdownLanguage {
+  height: calc(1.5rem + 21px);
+}
+
+#dropdownLanguage:hover, #dropdownLanguage option:hover {
+  cursor: pointer !important;
+}
+
+#dropdownLanguage option {
+  background: #343A40;
+}
+
+#userID {
+  margin-top: 0;
+}
+
+.regErrors {
+  color: #FF6666;
+  font-size: 1.1rem;
+  display: none;
+}

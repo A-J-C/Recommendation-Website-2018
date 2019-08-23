@@ -1,0 +1,202 @@
+<!-- AUTHOR: mxcm21	-->
+<!-- THE MAIN HOME PAGE -->
+
+<!-- we use a template for consistent navbar etc. -->
+{% extends "template.html" %}
+
+{% block title %}Movies{% endblock %}
+
+{% block main %}
+
+  <!-- Jumbotron -->
+  <div class="jumbotron" id="welcome" data-url="{{ url_for('index') }}">
+    <div class="container">
+      <h1 class="display-3">
+        <span data-langKey="hi">Hello</span>, <span class="userName">{{user}}</span>!
+      </h1>
+      <p><span data-langKey="welcomeMsg">If you're stuck scrolling through Netflix for your next movie to watch, use this helpful website to get your next recommendation.
+        <br/>You can see your top recommended movies below, as well as a search bar allowing you to search by Movie Title, and filter by Genre.
+        <br/>The more movies you rate, the better the recommendations!</span></p>
+    </div>
+
+    <div id="collapseWelcome">
+      <span id="arrowUp" class="arrow fas fa-angle-double-up"></span>
+      <span id="arrowDown" class="arrow fas fa-angle-double-down"></span>
+    </div>
+  </div>
+
+  <!-- Results and Search Area -->
+  <div id="searchArea">
+
+    <!-- area we want to stay at top when scrolling past -->
+    <div class="sticky-top">
+      <!-- pop up area -->
+      <div id="alertArea"></div>
+
+      <form id="searchBar">
+        <div id="searchContainer">
+          <input type="text" name="" placeholder="Search for movies..." id="searchField">
+          <button type="submit" id="searchIcon" class="fa fa-search"></button>
+        </div>
+        <div id="advanced">
+          <span data-langKey="Advanced">Advanced</span>
+          <span id="arrowDown" class="arrow fas fa-chevron-down down"></span>
+          <span id="arrowUp" class="arrow fas fa-chevron-up down"></span>
+        </div>
+        <div id="filters">
+          <div class="badge badge-pill genre selected"><span data-langKey="Action">Action</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Adventure">Adventure</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Animation">Animation</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Children">Children</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Comedy">Comedy</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Crime">Crime</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Documentary">Documentary</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Drama">Drama</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Fantasy">Fantasy</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Film-Noir">Film-Noir</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Horror">Horror</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Musical">Musical</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Mystery">Mystery</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Romance">Romance</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Sci-Fi">Sci-Fi</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Thriller">Thriller</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="War">War</span></div>
+          <div class="badge badge-pill genre selected"><span data-langKey="Western">Western</span></div>
+          <div id="toggleAll"><span data-langKey="toggle">Toggle All</span>: <span data-langKey="On" id="allOn">On</span> / <span data-langKey="Off" id="allOff">Off</span></div>
+
+          <div class="custom-control custom-checkbox" id="firstCheck">
+            <input class="custom-control-input" type="checkbox" name="checkbox" id="userTags" checked/>
+            <label class="custom-control-label" for="userTags"><span data-langKey="searchTags">Include search results from User Generated Tags</span></label>
+          </div>
+          <div class="custom-control custom-checkbox">
+              <input class="custom-control-input" type="checkbox" name="checkbox" id="phrase"/>
+              <label class="custom-control-label" for="phrase"><span data-langKey="searchFull">Search result must include full phrase</span></label>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Table -->
+    <div class="tableTitle"><span data-langKey="Search Results">Search Results </span></div>
+    <table class="table" id="searchTable">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><span data-langKey="Title">Title</span></th>
+          <th scope="col"><span data-langKey="Genres">Genres</span></th>
+          <th scope="col"><span data-langKey="Rating">Rating</span></th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <!-- Second Table -->
+    <div class="tableTitle"> <span class="userName">{{user}}</span>'s <span data-langKey="recommend">Top Recomendations</span> ...
+      <div class="recommendations" id="refresh" title="Rebuild the Matricies used for Recommendations, this takes a few seconds and will only make a difference after adding several ratings.">
+        <span data-langKey="Refresh">Refresh</span> <span class="fas fa-sync"></span>
+      </div>
+    </div>
+    <table class="table" id="topRecommendations">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><span data-langKey="Title">Title</span></th>
+          <th scope="col"><span data-langKey="Genres">Genres</span></th>
+          <th scope="col"><span data-langKey="Rating">Rating</span></th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+  <!-- Third Table -->
+  <div class="tableTitle"> <span class="userName">{{user}}</span>'s <span data-langKey="watchAgain">Watch Again</span> ... </div>
+  <table class="table" id="watchAgain">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col"><span data-langKey="Title">Title</span></th>
+        <th scope="col"><span data-langKey="Genres">Genres</span></th>
+        <th scope="col"><span data-langKey="Rating">Rating</span></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+
+  <!-- Settings/Profile Form -->
+  <!-- Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="settingsModalFullTitle"><span class="userName">{{user}}</span>'s <span data-langKey="Profile">Profile</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="registerForm" action="">
+              <div class="form-group">
+                  <input type="text" class="form-control " name="username" placeholder={{session['username']}} value={{session['username']}} required="" id="username">
+                  <div class="regErrors" id="usernameError"><span data-langKey="userWarning">Sorry, that username is already taken</span></div>
+
+                  <input type="text" class="form-control " name="email" placeholder={{session['email']}} value={{session['email']}} required="" id="email">
+
+                  <select id="dropdownLanguage" class="form-control" name="language">
+                    <option value="English" class="item">English</option>
+                    <option value="Français" class="item">Français</option>
+                    <option value="Deutsch" class="item">Deutsch</option>
+                    <option value="русский" class="item">русский</option>
+                  </select>
+
+                  <div><span data-langKey="movieLens">UserID from MovieLensDB</span>: <span id="idNo">{{session['idNo']}}</span></div>
+
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span data-langKey="Close">Close</span></button>
+          <button type="button" class="btn btn-info disabled" id="settingsSave"><span data-langKey="Save">Save changes</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal For Movie Info -->
+  <div class="modal fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="movieModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="movieModalTitle"><span id="movieName">Movie Name</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="movieBody"></div>
+          <!-- Third Table -->
+          <div class="tableTitle"> <span data-langKey="similar">Similar Movies</span> ... </div>
+          <table class="table" id="simliarMovies">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col"><span data-langKey="Title" style="width: 50%;">Title</span></th>
+                <th scope="col"><span data-langKey="Genres" style="width: 35%;">Genres</span></th>
+                <th scope="col"><span data-langKey="Rating" style="width: 15%;">Rating</span></th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><span data-langKey="Close">Close</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
